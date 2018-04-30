@@ -208,6 +208,16 @@ namespace Cake.Core.Tooling
                 info.EnvironmentVariables = GetEnvironmentVariables(settings);
             }
 
+            if (settings.RedirectStandardError.HasValue)
+            {
+                info.RedirectStandardError = settings.RedirectStandardError.Value;
+            }
+
+            if (settings.RedirectStandardOutput.HasValue)
+            {
+                info.RedirectStandardError = settings.RedirectStandardOutput.Value;
+            }
+
             // Run the process.
             var process = _processRunner.Start(toolPath, info);
             if (process == null)

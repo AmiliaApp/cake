@@ -67,5 +67,17 @@ namespace Cake.Core.Tooling
         /// </code>
         /// </example>
         public IDictionary<string, string> EnvironmentVariables { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the error output of an application is written to the standard error stream.
+        /// </summary>
+        /// <value>true if error output should be redirected; false if error output should be written to the standard error stream. The default is false.</value>
+        public bool? RedirectStandardError { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the output of an application is written to the standard output stream.
+        /// </summary>
+        /// <value>true if output should be redirected; false if output should be written to the standard output stream. The default is false.</value>
+        public bool? RedirectStandardOutput { get; set; }
     }
 }
