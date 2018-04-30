@@ -54,7 +54,7 @@ namespace Cake.Core.Tests.Unit
             {
                 // Given
                 var task = new ActionTask("task");
-                var context = new CakeContextFixture().CreateContext();
+                var context = new TaskExecutionContext(new CakeContextFixture().CreateContext(), task);
 
                 // When
                 task.Actions.Add((c) => throw new NotImplementedException());
@@ -71,7 +71,7 @@ namespace Cake.Core.Tests.Unit
             {
                 // Given
                 var task = new ActionTask("task");
-                var context = new CakeContextFixture().CreateContext();
+                var context = new TaskExecutionContext(new CakeContextFixture().CreateContext(), task);
 
                 // When
                 task.Actions.Add((c) => throw new NotImplementedException());
@@ -93,7 +93,7 @@ namespace Cake.Core.Tests.Unit
             {
                 // Given
                 var task = new ActionTask("task");
-                var context = new CakeContextFixture().CreateContext();
+                var context = new TaskExecutionContext(new CakeContextFixture().CreateContext(), task);
 
                 // When
                 task.Actions.Add((c) => throw new NotImplementedException());

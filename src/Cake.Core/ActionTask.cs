@@ -18,7 +18,7 @@ namespace Cake.Core
         /// Gets the task's actions.
         /// </summary>
         /// <value>The task's actions.</value>
-        public List<Func<ICakeContext, Task>> Actions { get; }
+        public List<Func<ITaskExecutionContext, Task>> Actions { get; }
 
         /// <summary>
         /// Gets the task's actions that are run at execution time to additionally populate <see cref="Actions"/>.
@@ -39,7 +39,7 @@ namespace Cake.Core
         public ActionTask(string name)
             : base(name)
         {
-            Actions = new List<Func<ICakeContext, Task>>();
+            Actions = new List<Func<ITaskExecutionContext, Task>>();
             DelayedActions = new Queue<Action>();
         }
 
@@ -47,12 +47,13 @@ namespace Cake.Core
         /// Adds an action to the task.
         /// </summary>
         /// <param name="action">The action.</param>
-        public void AddAction(Func<ICakeContext, Task> action)
+        public void AddAction(Func<ITaskExecutionContext, Task> action)
         {
             if (action == null)
             {
                 throw new ArgumentNullException(nameof(action));
             }
+
             Actions.Add(action);
         }
 
@@ -84,7 +85,7 @@ namespace Cake.Core
         /// </summary>
         /// <param name="context">The context.</param>
         /// <returns>Returned Task</returns>
-        public override async Task Execute(ICakeContext context)
+        public override async Task Execute(ITaskExecutionContext context)
         {
             while (DelayedActions.Count > 0)
             {

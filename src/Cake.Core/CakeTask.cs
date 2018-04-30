@@ -194,6 +194,6 @@ namespace Cake.Core
         /// </summary>
         /// <param name="context">The context.</param>
         /// <returns>Returned Task</returns>
-        public abstract Task Execute(ICakeContext context);
+        public abstract Task Execute(ITaskExecutionContext context);
     }
 }

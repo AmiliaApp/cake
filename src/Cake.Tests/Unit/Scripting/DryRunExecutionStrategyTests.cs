@@ -32,7 +32,7 @@ namespace Cake.Tests.Unit.Scripting
             {
                 // Given
                 var log = new FakeLog();
-                var context = Substitute.For<ICakeContext>();
+                var context = Substitute.For<ITaskExecutionContext>();
                 var strategy = new DryRunExecutionStrategy(log);
 
                 // When

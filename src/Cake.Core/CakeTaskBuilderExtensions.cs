@@ -172,7 +172,7 @@ namespace Cake.Core
         /// <param name="builder">The task builder.</param>
         /// <param name="action">The action.</param>
         /// <returns>The same <see cref="CakeTaskBuilder{ActionTask}"/> instance so that multiple calls can be chained.</returns>
-        public static CakeTaskBuilder<ActionTask> Does(this CakeTaskBuilder<ActionTask> builder, Action<ICakeContext> action)
+        public static CakeTaskBuilder<ActionTask> Does(this CakeTaskBuilder<ActionTask> builder, Action<ITaskExecutionContext> action)
         {
             if (builder == null)
             {
@@ -194,7 +194,7 @@ namespace Cake.Core
         /// <param name="action">The action.</param>
         /// <returns>The same <see cref="CakeTaskBuilder{ActionTask}"/> instance so that multiple calls can be chained.</returns>
         public static CakeTaskBuilder<ActionTask> Does(this CakeTaskBuilder<ActionTask> builder,
-            Func<ICakeContext, Task> action)
+            Func<ITaskExecutionContext, Task> action)
         {
             if (builder == null)
             {
@@ -226,7 +226,7 @@ namespace Cake.Core
         /// <param name="items">The items.</param>
         /// <param name="action">The action.</param>
         /// <returns>The same <see cref="CakeTaskBuilder{ActionTask}"/> instance so that multiple calls can be chained.</returns>
-        public static CakeTaskBuilder<ActionTask> DoesForEach<TItem>(this CakeTaskBuilder<ActionTask> builder, IEnumerable<TItem> items, Action<TItem, ICakeContext> action)
+        public static CakeTaskBuilder<ActionTask> DoesForEach<TItem>(this CakeTaskBuilder<ActionTask> builder, IEnumerable<TItem> items, Action<TItem, ITaskExecutionContext> action)
         {
             if (builder == null)
             {
@@ -267,7 +267,7 @@ namespace Cake.Core
         /// <param name="itemsFunc">The items.</param>
         /// <param name="action">The action.</param>
         /// <returns>The same <see cref="CakeTaskBuilder{ActionTask}"/> instance so that multiple calls can be chained.</returns>
-        public static CakeTaskBuilder<ActionTask> DoesForEach<TItem>(this CakeTaskBuilder<ActionTask> builder, Func<IEnumerable<TItem>> itemsFunc, Action<TItem, ICakeContext> action)
+        public static CakeTaskBuilder<ActionTask> DoesForEach<TItem>(this CakeTaskBuilder<ActionTask> builder, Func<IEnumerable<TItem>> itemsFunc, Action<TItem, ITaskExecutionContext> action)
         {
             if (builder == null)
             {

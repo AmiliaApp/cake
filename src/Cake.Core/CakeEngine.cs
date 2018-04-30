@@ -239,8 +239,10 @@ namespace Cake.Core
             bool exceptionWasThrown = false;
             try
             {
+                var taskExecutionContext = new TaskExecutionContext(context, task);
+
                 // Execute the task.
-                await strategy.ExecuteAsync(task, context).ConfigureAwait(false);
+                await strategy.ExecuteAsync(task, taskExecutionContext).ConfigureAwait(false);
             }
             catch (Exception exception)
             {

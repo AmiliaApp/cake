@@ -32,7 +32,7 @@ namespace Cake.Scripting
         {
         }
 
-        public Task ExecuteAsync(CakeTask task, ICakeContext context)
+        public Task ExecuteAsync(CakeTask task, ITaskExecutionContext context)
         {
             if (task != null)
             {

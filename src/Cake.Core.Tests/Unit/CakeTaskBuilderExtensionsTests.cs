@@ -380,7 +380,7 @@ namespace Cake.Core.Tests.Unit
                 // Given
                 var task = new ActionTask("task");
                 var builder = new CakeTaskBuilder<ActionTask>(task);
-                var context = new CakeContextFixture().CreateContext();
+                var context = new TaskExecutionContext(new CakeContextFixture().CreateContext(), task);
 
                 // When
                 CakeTaskBuilderExtensions.DoesForEach(builder, () => new[] { "a", "b", "c" }, (item) => { });
@@ -403,7 +403,7 @@ namespace Cake.Core.Tests.Unit
                 // Given
                 var task = new ActionTask("task");
                 var builder = new CakeTaskBuilder<ActionTask>(task);
-                var context = new CakeContextFixture().CreateContext();
+                var context = new TaskExecutionContext(new CakeContextFixture().CreateContext(), task);
 
                 // When
                 CakeTaskBuilderExtensions.DoesForEach(builder, () => new[] { "a", "b", "c" }, (item, c) => { });
@@ -426,7 +426,7 @@ namespace Cake.Core.Tests.Unit
                 // Given
                 var task = new ActionTask("task");
                 var builder = new CakeTaskBuilder<ActionTask>(task);
-                var context = new CakeContextFixture().CreateContext();
+                var context = new TaskExecutionContext(new CakeContextFixture().CreateContext(), task);
 
                 // When
                 CakeTaskBuilderExtensions.DoesForEach(builder, () => new[] { "a", "b", "c" }, (item, c) => throw new NotImplementedException());
@@ -455,7 +455,7 @@ namespace Cake.Core.Tests.Unit
                 // Given
                 var task = new ActionTask("task");
                 var builder = new CakeTaskBuilder<ActionTask>(task);
-                var context = new CakeContextFixture().CreateContext();
+                var context = new TaskExecutionContext(new CakeContextFixture().CreateContext(), task);
 
                 // When
                 builder.Does(() => throw new NotImplementedException());
@@ -473,7 +473,7 @@ namespace Cake.Core.Tests.Unit
                 // Given
                 var task = new ActionTask("task");
                 var builder = new CakeTaskBuilder<ActionTask>(task);
-                var context = new CakeContextFixture().CreateContext();
+                var context = new TaskExecutionContext(new CakeContextFixture().CreateContext(), task);
 
                 // When
                 builder.Does(() => throw new NotImplementedException());
@@ -496,7 +496,7 @@ namespace Cake.Core.Tests.Unit
                 // Given
                 var task = new ActionTask("task");
                 var builder = new CakeTaskBuilder<ActionTask>(task);
-                var context = new CakeContextFixture().CreateContext();
+                var context = new TaskExecutionContext(new CakeContextFixture().CreateContext(), task);
 
                 // When
                 builder.Does(() => throw new NotImplementedException());
