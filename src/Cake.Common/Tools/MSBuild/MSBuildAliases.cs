@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System;
+using System.Diagnostics;
 using Cake.Core;
 using Cake.Core.Annotations;
 using Cake.Core.IO;

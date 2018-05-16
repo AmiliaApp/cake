@@ -4,9 +4,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 using Cake.Core.IO;
 
 namespace Cake.Core.Tooling
@@ -80,6 +82,36 @@ namespace Cake.Core.Tooling
             Run(settings, arguments, null, null);
         }
 
+        private async Task RedirectedProcessOutput(IProcess process, Action<string> standardOutputAction, Action<string> errorOutputAction)
+        {
+            var standardOutputTask = Task.CompletedTask;
+
+            if (standardOutputAction != null)
+            {
+                standardOutputTask = Task.Run(() =>
+                {
+                    foreach (var standardOutput in process.GetStandardOutput())
+                    {
+                        standardOutputAction(standardOutput);
+                    }
+                });
+            }
+
+            var errorOutputTask = Task.CompletedTask;
+            if (errorOutputAction != null)
+            {
+                standardOutputTask = Task.Run(() =>
+                {
+                    foreach (var errorOutput in process.GetStandardError())
+                    {
+                        errorOutputAction(errorOutput);
+                    }
+                });
+            }
+
+            await Task.WhenAll(standardOutputTask, errorOutputTask).ConfigureAwait(false);
+        }
+
         /// <summary>
         /// Runs the tool using a custom tool path and the specified settings.
         /// </summary>
@@ -100,6 +132,8 @@ namespace Cake.Core.Tooling
 
             var process = RunProcess(settings, arguments, processSettings);
 
+            var outputRedirectTask = RedirectedProcessOutput(process, settings.RedirectStandardOutput, settings.RedirectStandardError);
+
             // Wait for the process to exit.
             if (settings.ToolTimeout.HasValue)
             {
@@ -112,6 +146,7 @@ namespace Cake.Core.Tooling
             else
             {
                 process.WaitForExit();
+                outputRedirectTask.Wait();
             }
 
             try
@@ -208,14 +243,14 @@ namespace Cake.Core.Tooling
                 info.EnvironmentVariables = GetEnvironmentVariables(settings);
             }
 
-            if (settings.RedirectStandardError.HasValue)
+            if (settings.RedirectStandardError != null)
             {
-                info.RedirectStandardError = settings.RedirectStandardError.Value;
+                info.RedirectStandardError = true;
             }
 
-            if (settings.RedirectStandardOutput.HasValue)
+            if (settings.RedirectStandardOutput != null)
             {
-                info.RedirectStandardError = settings.RedirectStandardOutput.Value;
+                info.RedirectStandardOutput = true;
             }
 
             // Run the process.
