@@ -132,7 +132,21 @@ namespace Cake.Core.Tooling
 
             var process = RunProcess(settings, arguments, processSettings);
 
-            var outputRedirectTask = RedirectedProcessOutput(process, settings.RedirectStandardOutput, settings.RedirectStandardError);
+            WaitForProcess(process, settings, postAction);
+        }
+
+        /// <summary>
+        /// Redirects the output if it is configured to and waits for the given process to complete.
+        /// </summary>
+        /// <param name="process">The process to wait for</param>
+        /// <param name="settings">The settings.</param>
+        /// <param name="postAction">If specified called after process exit</param>
+        protected void WaitForProcess(
+            IProcess process,
+            TSettings settings,
+            Action<IProcess> postAction)
+        {
+            var outputRedirectTask = RedirectedProcessOutput(process, settings.RedirectStandardOutputAction, settings.RedirectStandardErrorAction);
 
             // Wait for the process to exit.
             if (settings.ToolTimeout.HasValue)
@@ -209,16 +223,36 @@ namespace Cake.Core.Tooling
                 arguments = settings.ArgumentCustomization(arguments);
             }
 
-            // Get the tool name.
-            var toolName = GetToolName();
-
             // Get the tool path.
             var toolPath = GetToolPath(settings);
             if (toolPath == null || !_fileSystem.Exist(toolPath))
             {
+                // Get the tool name.
+                var toolName = GetToolName();
+
                 const string message = "{0}: Could not locate executable.";
                 throw new CakeException(string.Format(CultureInfo.InvariantCulture, message, toolName));
             }
+
+            return RunProcess(settings, toolPath, arguments, processSettings);
+        }
+
+        /// <summary>
+        /// Runs the tool using the given relative or absolute toolPath which specified settings.
+        /// </summary>
+        /// <param name="settings">The settings.</param>
+        /// <param name="toolPath">The relativeo or absolute tool path.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <param name="processSettings">The process settings.</param>
+        /// <returns>The process that the tool is running under.</returns>
+        protected IProcess RunProcess(
+            TSettings settings,
+            FilePath toolPath,
+            ProcessArgumentBuilder arguments,
+            ProcessSettings processSettings)
+        {
+            // Get the tool name.
+            var toolName = GetToolName();
 
             // Get the working directory.
             var workingDirectory = GetWorkingDirectory(settings);
@@ -243,12 +277,12 @@ namespace Cake.Core.Tooling
                 info.EnvironmentVariables = GetEnvironmentVariables(settings);
             }
 
-            if (settings.RedirectStandardError != null)
+            if (settings.RedirectStandardErrorAction != null)
             {
                 info.RedirectStandardError = true;
             }
 
-            if (settings.RedirectStandardOutput != null)
+            if (settings.RedirectStandardOutputAction != null)
             {
                 info.RedirectStandardOutput = true;
             }
