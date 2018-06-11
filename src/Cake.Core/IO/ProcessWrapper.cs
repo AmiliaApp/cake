@@ -6,6 +6,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Cake.Core.Diagnostics;
 
 namespace Cake.Core.IO
@@ -64,6 +65,7 @@ namespace Cake.Core.IO
                 string line;
                 if (!_consoleErrorQueue.TryDequeue(out line))
                 {
+                    Task.Delay(50).Wait();
                     continue;
                 }
                 _log.Debug(log => log("{0}", _filterOutput(line)));
@@ -82,6 +84,7 @@ namespace Cake.Core.IO
                 string line;
                 if (!_consoleOutputQueue.TryDequeue(out line))
                 {
+                    Task.Delay(50).Wait();
                     continue;
                 }
                 _log.Debug(log => log("{0}", _filterOutput(line)));
