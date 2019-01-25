@@ -65,7 +65,7 @@ namespace Cake.Core.IO
                 string line;
                 if (!_consoleErrorQueue.TryDequeue(out line))
                 {
-                    Task.Delay(50).Wait();
+                    Task.Delay(50).GetAwaiter().GetResult();
                     continue;
                 }
                 _log.Debug(log => log("{0}", _filterOutput(line)));
@@ -84,7 +84,7 @@ namespace Cake.Core.IO
                 string line;
                 if (!_consoleOutputQueue.TryDequeue(out line))
                 {
-                    Task.Delay(50).Wait();
+                    Task.Delay(50).GetAwaiter().GetResult();
                     continue;
                 }
                 _log.Debug(log => log("{0}", _filterOutput(line)));

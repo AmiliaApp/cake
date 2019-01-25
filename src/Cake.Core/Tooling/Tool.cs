@@ -160,7 +160,7 @@ namespace Cake.Core.Tooling
             else
             {
                 process.WaitForExit();
-                outputRedirectTask.Wait();
+                outputRedirectTask.GetAwaiter().GetResult();
             }
 
             try
