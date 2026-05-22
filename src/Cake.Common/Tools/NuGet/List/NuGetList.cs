@@ -74,7 +74,7 @@ namespace Cake.Common.Tools.NuGet.List
 
         private NuGetListItem ConvertToNuGetListItem(string line)
         {
-            var splitline = line.Split(' ', '\t');
+            var splitline = line.Split(new[] { ' ', '\t' }, StringSplitOptions.None);
             return new NuGetListItem()
             {
                 Name = splitline[0],

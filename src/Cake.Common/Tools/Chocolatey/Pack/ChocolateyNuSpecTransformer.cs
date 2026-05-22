@@ -15,12 +15,7 @@ namespace Cake.Common.Tools.Chocolatey.Pack
     {
         private const string ChocolateyNuSpecXsd = "http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd";
 
-        private static readonly Dictionary<string, Func<ChocolateyPackSettings, string>> _mappings;
-        private static readonly List<string> _cdataElements;
-
-        static ChocolateyNuSpecTransformer()
-        {
-            _mappings = new Dictionary<string, Func<ChocolateyPackSettings, string>>
+        private static readonly Dictionary<string, Func<ChocolateyPackSettings, string>> _mappings = new Dictionary<string, Func<ChocolateyPackSettings, string>>
             {
                 { "id", settings => ToString(settings.Id) },
                 { "title", settings => ToString(settings.Title) },
@@ -43,11 +38,10 @@ namespace Cake.Common.Tools.Chocolatey.Pack
                 { "releaseNotes", settings => ToMultiLineString(settings.ReleaseNotes) }
             };
 
-            _cdataElements = new List<string>
+        private static readonly List<string> _cdataElements = new List<string>
                                 {
                                     "releaseNotes"
                                 };
-        }
 
         public static void Transform(XmlDocument document, ChocolateyPackSettings settings)
         {

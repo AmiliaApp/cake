@@ -15,12 +15,7 @@ namespace Cake.Common.Tools.NuGet.Pack
     {
         private const string NuSpecXsd = "http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd";
 
-        private static readonly Dictionary<string, Func<NuGetPackSettings, string>> _mappings;
-        private static readonly List<string> _cdataElements;
-
-        static NuspecTransformer()
-        {
-            _mappings = new Dictionary<string, Func<NuGetPackSettings, string>>
+        private static readonly Dictionary<string, Func<NuGetPackSettings, string>> _mappings = new Dictionary<string, Func<NuGetPackSettings, string>>
             {
                 { "id", settings => ToString(settings.Id) },
                 { "version", settings => ToString(settings.Version) },
@@ -40,8 +35,7 @@ namespace Cake.Common.Tools.NuGet.Pack
                 { "language", settings => ToString(settings.Language) }
             };
 
-            _cdataElements = new List<string> { "releaseNotes" };
-        }
+        private static readonly List<string> _cdataElements = new List<string> { "releaseNotes" };
 
         public static void Transform(XmlDocument document, NuGetPackSettings settings)
         {
