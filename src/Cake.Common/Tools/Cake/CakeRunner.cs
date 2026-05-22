@@ -26,16 +26,13 @@ namespace Cake.Common.Tools.Cake
         private readonly IFileSystem _fileSystem;
         private readonly IGlobber _globber;
         private readonly DotNetCoreExecutor _coreExecutor;
-        private static readonly IEnumerable<FilePath> _executingAssemblyToolPaths;
+        private static readonly IEnumerable<FilePath> _executingAssemblyToolPaths = GetExecutingAssemblyToolPaths();
 
-        /// <summary>
-        /// Initializes static members of the <see cref="CakeRunner"/> class.
-        /// </summary>
-        static CakeRunner()
+        private static FilePath[] GetExecutingAssemblyToolPaths()
         {
             var entryAssembly = AssemblyHelper.GetExecutingAssembly();
             var executingAssemblyToolPath = ((FilePath)entryAssembly.Location).GetDirectory();
-            _executingAssemblyToolPaths = new[]
+            return new[]
             {
 #if NETCORE
                 executingAssemblyToolPath.CombineWithFilePath("Cake.dll")

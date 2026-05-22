@@ -18,12 +18,7 @@ namespace Cake.Common.Build.MyGet
     {
         private const string MessagePrefix = "##myget[";
         private const string MessagePostfix = "]";
-        private static readonly Dictionary<string, string> _sanitizationTokens;
-        private readonly ICakeEnvironment _environment;
-
-        static MyGetProvider()
-        {
-            _sanitizationTokens = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> _sanitizationTokens = new Dictionary<string, string>
             {
                 { "|", "||" },
                 { "\'", "|\'" },
@@ -32,7 +27,7 @@ namespace Cake.Common.Build.MyGet
                 { "[", "|['" },
                 { "]", "|]" }
             };
-        }
+        private readonly ICakeEnvironment _environment;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MyGetProvider"/> class.
