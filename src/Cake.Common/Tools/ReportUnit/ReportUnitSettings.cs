@@ -11,5 +11,11 @@ namespace Cake.Common.Tools.ReportUnit
     /// </summary>
     public sealed class ReportUnitSettings : ToolSettings
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReportUnitSettings"/> class.
+        /// </summary>
+        public ReportUnitSettings()
+        {
+        }
     }
 }

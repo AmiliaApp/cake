@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using Cake.Core;
 using Cake.Core.Annotations;
 using Cake.Core.IO;
@@ -19,6 +20,7 @@ namespace Cake.Common.Tools.NSIS
     /// </summary>
     [CakeAliasCategory("NSIS")]
     // ReSharper disable once InconsistentNaming
+    [SuppressMessage("Microsoft.Naming", "S101:Types should be named in PascalCase", Justification = "NSIS is a well-known acronym")]
     public static class NSISAliases
     {
         /// <summary>
@@ -36,7 +38,7 @@ namespace Cake.Common.Tools.NSIS
         // ReSharper disable once InconsistentNaming
         public static void MakeNSIS(this ICakeContext context, FilePath scriptFile)
         {
-            MakeNSIS(context, scriptFile, new MakeNSISSettings());
+            MakeNSIS(context, scriptFile, new MakeNsisSettings());
         }
 
         /// <summary>
@@ -44,7 +46,7 @@ namespace Cake.Common.Tools.NSIS
         /// </summary>
         /// <param name="context">The context.</param>
         /// <param name="scriptFile">The path to the <c>.nsi</c> script file to compile.</param>
-        /// <param name="settings">The <see cref="MakeNSISSettings"/> to use.</param>
+        /// <param name="settings">The <see cref="MakeNsisSettings"/> to use.</param>
         /// <example>
         /// <code>
         /// MakeNSIS("./src/Cake.nsi", new MakeNSISSettings {
@@ -55,7 +57,7 @@ namespace Cake.Common.Tools.NSIS
         [CakeMethodAlias]
         [CakeAliasCategory("MakeNSIS")]
         // ReSharper disable once InconsistentNaming
-        public static void MakeNSIS(this ICakeContext context, FilePath scriptFile, MakeNSISSettings settings)
+        public static void MakeNSIS(this ICakeContext context, FilePath scriptFile, MakeNsisSettings settings)
         {
             if (context == null)
             {
@@ -67,8 +69,8 @@ namespace Cake.Common.Tools.NSIS
                 throw new ArgumentNullException(nameof(scriptFile));
             }
 
-            var runner = new MakeNSISRunner(context.FileSystem, context.Environment, context.ProcessRunner, context.Tools);
-            runner.Run(scriptFile, settings ?? new MakeNSISSettings());
+            var runner = new MakeNsisRunner(context.FileSystem, context.Environment, context.ProcessRunner, context.Tools);
+            runner.Run(scriptFile, settings ?? new MakeNsisSettings());
         }
     }
 }
