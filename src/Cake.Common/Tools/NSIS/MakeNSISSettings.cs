@@ -10,8 +10,7 @@ namespace Cake.Common.Tools.NSIS
     /// <summary>
     /// Contains settings used by the <see cref="MakeNSISRunner"/>.
     /// </summary>
-    // ReSharper disable once InconsistentNaming
-    public sealed class MakeNSISSettings : ToolSettings
+    public sealed class MakeNsisSettings : ToolSettings
     {
         /// <summary>
         /// Gets or sets the script compiler defines.

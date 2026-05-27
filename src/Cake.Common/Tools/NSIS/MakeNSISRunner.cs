@@ -14,19 +14,18 @@ namespace Cake.Common.Tools.NSIS
     /// <summary>
     /// The runner which executes NSIS.
     /// </summary>
-    // ReSharper disable once InconsistentNaming
-    public sealed class MakeNSISRunner : Tool<MakeNSISSettings>
+    public sealed class MakeNsisRunner : Tool<MakeNsisSettings>
     {
         private readonly ICakeEnvironment _environment;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MakeNSISRunner"/> class.
+        /// Initializes a new instance of the <see cref="MakeNsisRunner"/> class.
         /// </summary>
         /// <param name="fileSystem">The file system.</param>
         /// <param name="environment">The environment.</param>
         /// <param name="processRunner">The process runner.</param>
         /// <param name="tools">The tool locator.</param>
-        public MakeNSISRunner(
+        public MakeNsisRunner(
             IFileSystem fileSystem,
             ICakeEnvironment environment,
             IProcessRunner processRunner,
@@ -40,7 +39,7 @@ namespace Cake.Common.Tools.NSIS
         /// </summary>
         /// <param name="scriptFile">The script file (<c>.nsi</c>) to compile.</param>
         /// <param name="settings">The settings.</param>
-        public void Run(FilePath scriptFile, MakeNSISSettings settings)
+        public void Run(FilePath scriptFile, MakeNsisSettings settings)
         {
             if (scriptFile == null)
             {
@@ -71,7 +70,7 @@ namespace Cake.Common.Tools.NSIS
             return new[] { "makensis.exe" };
         }
 
-        private ProcessArgumentBuilder GetArguments(FilePath scriptFile, MakeNSISSettings settings)
+        private ProcessArgumentBuilder GetArguments(FilePath scriptFile, MakeNsisSettings settings)
         {
             var builder = new ProcessArgumentBuilder();
 

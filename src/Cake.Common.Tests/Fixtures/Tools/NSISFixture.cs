@@ -9,7 +9,7 @@ using Cake.Testing.Fixtures;
 namespace Cake.Common.Tests.Fixtures.Tools
 {
     // ReSharper disable once InconsistentNaming
-    internal sealed class NSISFixture : ToolFixture<MakeNSISSettings>
+    internal sealed class NSISFixture : ToolFixture<MakeNsisSettings>
     {
         public FilePath ScriptPath { get; set; }
 
@@ -21,7 +21,7 @@ namespace Cake.Common.Tests.Fixtures.Tools
 
         protected override void RunTool()
         {
-            var tool = new MakeNSISRunner(FileSystem, Environment, ProcessRunner, Tools);
+            var tool = new MakeNsisRunner(FileSystem, Environment, ProcessRunner, Tools);
             tool.Run(ScriptPath, Settings);
         }
     }

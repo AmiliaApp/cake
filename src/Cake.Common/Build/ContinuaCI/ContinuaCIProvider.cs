@@ -18,12 +18,7 @@ namespace Cake.Common.Build.ContinuaCI
     {
         private const string MessagePrefix = "@@continua[";
         private const string MessagePostfix = "]";
-        private static readonly Dictionary<string, string> _sanitizationTokens;
-        private readonly ICakeEnvironment _environment;
-
-        static ContinuaCIProvider()
-        {
-            _sanitizationTokens = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> _sanitizationTokens = new Dictionary<string, string>
             {
                 { "\\", "\\\\" },
                 { "'", "\\'" },
@@ -32,7 +27,7 @@ namespace Cake.Common.Build.ContinuaCI
                 { "[", "\\['" },
                 { "]", "\\]" }
             };
-        }
+        private readonly ICakeEnvironment _environment;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ContinuaCIProvider"/> class.
